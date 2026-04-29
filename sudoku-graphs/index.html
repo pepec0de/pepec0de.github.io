@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sudoku Graphs</title>
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Cytoscape.js desde CDN (global window.cytoscape) -->
+  <script src="https://unpkg.com/cytoscape@3.30.0/dist/cytoscape.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand">
+        <span class="brand-logo">SG</span>
+        <div class="brand-text">
+          <div class="brand-title">Sudoku Graphs</div>
+          <div class="brand-subtitle">Grafos de espacios de soluciones</div>
+        </div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <nav class="topnav">
+        <a href="#intro">Introducción</a>
+        <a href="#how-it-works">Cómo funciona</a>
+        <a href="#views">Visualizaciones</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app">
+    <!-- PANEL LATERAL: selección de dataset + navegación de vistas -->
+    <aside class="sidebar">
+      <section class="sidebar-section" id="dataset-section">
+        <h2>Dataset</h2>
+        <label for="dataset-select">Tamaño de Sudoku (N)</label>
+        <select id="dataset-select">
+          <!-- Se rellena desde main.js según el JSON -->
+        </select>
+        <button id="btn-new-view" class="btn-primary">
+          + Nuevo lienzo
+        </button>
+        <p class="sidebar-hint">
+          Elige N y crea un lienzo para visualizar un grafo.<br />
+          Puedes crear varios lienzos para comparar.
+        </p>
+      </section>
+
+      <section class="sidebar-section">
+        <h2>Vistas</h2>
+        <div id="views-nav-list" class="views-nav-list">
+          <!-- Aquí se añaden los botones "Vista 1", "Vista 2", ... -->
+        </div>
+      </section>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <section class="content">
+      <section id="intro" class="content-section hero">
+        <h1>Explora grafos de Sudokus</h1>
+        <p>
+          Cada nodo representa una solución de Sudoku (N×N) y las aristas codifican
+          relaciones definidas por tus reglas de adyacencia. Usa los lienzos para
+          comparar distintos grafos o reglas.
+        </p>
+      </section>
+
+      <section id="how-it-works" class="content-section">
+        <h2>Cómo funciona</h2>
+        <p>
+          Los grafos se cargan desde un archivo JSON que contiene, para cada tamaño
+          de Sudoku <code>N</code>:
+        </p>
+        <ul>
+          <li><code>N</code>: tamaño del Sudoku.</li>
+          <li><code>labels</code>: vector de etiquetas de longitud <code>N²</code>.</li>
+          <li><code>graphs</code>: lista de grafos, cada uno con su matriz de adyacencia <code>N²×N²</code>.</li>
+        </ul>
+        <p>
+          El código valida que las matrices de adyacencia y el vector de etiquetas
+          tienen las dimensiones correctas antes de dibujar nada.
+        </p>
+      </section>
+
+      <section id="views" class="content-section">
+        <h2>Lienzos de grafos</h2>
+        <p>
+          Usa el panel lateral para crear múltiples lienzos. Cada uno puede mostrar
+          un grafo diferente (por ejemplo, otra regla de adyacencia o tamaño de Sudoku)
+          y así comparar sus propiedades visualmente.
+        </p>
+
+        <!-- Aquí se insertan dinámicamente las vistas -->
+        <div id="views-container" class="views-container">
+          <!-- .graph-view se añaden desde viewManager.js -->
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Scripts de la aplicación (en orden) -->
+  <script src="js/validator.js"></script>
+  <script src="js/graphUtils.js"></script>
+  <script src="js/viewManager.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
